@@ -1,28 +1,43 @@
-﻿using System;
+﻿using BrainMood.Harvester.Mindwave.Events;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace BrainMood.Harvester
 {
-    class Program
+    public class Program
     {
-        async static void Main(string[] args)
+        public static void Main(string[] _)
         {
-            var client = new MindWaveClient(new System.Net.Sockets.TcpClient());
-            client.DataReceived += DataReceived;
+            AsyncMain().Wait();
 
-            using (var cancellationTokenSource = new CancellationTokenSource())
-            {
-                var task = client.Run(cancellationTokenSource.Token);
-
-                cancellationTokenSource.Cancel();
-
-                await task;
-            }
+            Console.WriteLine("Done! Press any key to continue...");
+            Console.ReadLine();
         }
 
-        static void DataReceived(object? sender, MindWaveEventArgs args)
+        private async static Task AsyncMain()
         {
+            var headsetClient = new HeadsetClient();
+            headsetClient.DataReceived += DataReceived;
+            headsetClient.ErrorOccured += ErrorOccured;
 
+            using var cancellationTokenSource = new CancellationTokenSource();
+            var task = headsetClient.Run(cancellationTokenSource.Token);
+            Console.ReadLine();
+            cancellationTokenSource.Cancel();
+            await task;
+        }
+
+        private static void DataReceived(object? sender, EegDataEventArgs args)
+        {
+            Console.WriteLine(args.Data);
+            Console.WriteLine();
+        }
+
+        private static void ErrorOccured(object? sender, ErrorEventArgs args)
+        {
+            Console.WriteLine($"{args.Error}");
+            Console.WriteLine();
         }
     }
 }
