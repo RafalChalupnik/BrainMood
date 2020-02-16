@@ -1,5 +1,6 @@
 ﻿using BrainMood.Harvester.Data;
 using BrainMood.Harvester.Mindwave.Events;
+using BrainMoodML.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,14 +36,28 @@ namespace BrainMood.Harvester
             cancellationTokenSource.Cancel();
             await task;
 
-            File.WriteAllLines("output.csv", s_data);
+            //File.WriteAllLines("output.csv", s_data);
         }
 
         private static void DataReceived(object? sender, EegDataEventArgs args)
         {
-            s_data.Add(EegDataToCsvString(args.Data));
+            var inputModel = new ModelInput
+            {
+                AlphaHigh = (float) args.Data.Brainwaves.AlphaHigh,
+                AlphaLow = (float)args.Data.Brainwaves.AlphaLow,
+                Attention = (float)args.Data.ESense.Attention,
+                BetaHigh = (float)args.Data.Brainwaves.BetaHigh,
+                BetaLow = (float)args.Data.Brainwaves.BetaLow,
+                Delta = (float)args.Data.Brainwaves.Delta,
+                GammaHigh = (float)args.Data.Brainwaves.GammaHigh,
+                GammaLow = (float)args.Data.Brainwaves.GammaLow,
+                Meditation = (float)args.Data.ESense.Meditation,
+                Theta = (float)args.Data.Brainwaves.Theta
+            };
 
-            Console.WriteLine(args.Data);
+            var outputModel = ConsumeModel.Predict(inputModel);
+            Console.WriteLine($"Prediction: {outputModel.Prediction}");
+            Console.WriteLine($"Score: {string.Join(',', outputModel.Score)}");
             Console.WriteLine();
         }
 
