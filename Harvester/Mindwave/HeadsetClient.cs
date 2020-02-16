@@ -81,7 +81,7 @@ namespace BrainMood.Harvester
 
         private void HandlePacket(string packetJson)
         {
-            if (!packetJson.Contains("{") || packetJson.Contains("blink") || packetJson.Contains("mentalEffort"))
+            if (!packetJson.Contains("{") || packetJson.Contains("blink") || packetJson.Contains("mentalEffort") || packetJson.Contains("familiarity"))
             {
                 //ReportError($"Unrecognized JSON: {packetJson}");
                 return;
