@@ -1,7 +1,7 @@
-﻿using BrainMood.Harvester.Types;
+﻿using BrainMood.Client.Types;
 using Newtonsoft.Json;
 
-namespace BrainMood.Harvester.Mindwave
+namespace BrainMood.Client.Mindwave
 {
     public class ConfigurationPacket
     {

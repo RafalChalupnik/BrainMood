@@ -1,7 +1,7 @@
-﻿using BrainMood.Harvester.Data;
-using BrainMood.Harvester.Mindwave;
-using BrainMood.Harvester.Mindwave.Events;
-using BrainMood.Harvester.Types;
+﻿using BrainMood.Client.Data;
+using BrainMood.Client.Mindwave;
+using BrainMood.Client.Mindwave.Events;
+using BrainMood.Client.Types;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BrainMood.Harvester
+namespace BrainMood.Client
 {
     public class HeadsetClient : TcpClient
     {
@@ -63,7 +63,7 @@ namespace BrainMood.Harvester
             var configurationPacketJson = JsonConvert.SerializeObject(s_configurationPacket);
             var configurationPacketBytes = s_encoding.GetBytes(configurationPacketJson);
 
-            await m_networkStream.WriteAsync(configurationPacketBytes);
+            await m_networkStream.WriteAsync(configurationPacketBytes, 0, configurationPacketBytes.Length);
         }
 
         private List<string> ReadPacketsBatch()

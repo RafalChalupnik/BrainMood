@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BrainMood.Harvester.Data
+namespace BrainMood.Client.Data
 {
     public class ESenseReadings
     {

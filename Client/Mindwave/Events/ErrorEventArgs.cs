@@ -1,7 +1,7 @@
-﻿using BrainMood.Harvester.Types;
+﻿using BrainMood.Client.Types;
 using System;
 
-namespace BrainMood.Harvester.Mindwave.Events
+namespace BrainMood.Client.Mindwave.Events
 {
     public class ErrorEventArgs : EventArgs
     {

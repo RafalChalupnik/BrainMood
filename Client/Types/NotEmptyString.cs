@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BrainMood.Harvester.Types
+namespace BrainMood.Client.Types
 {
     public class NotEmptyString
     {

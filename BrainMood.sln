@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMood.Harvester", "Harvester\BrainMood.Harvester.csproj", "{90551D3F-526B-45DC-9500-49C01A304148}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMood.Client", "Client\BrainMood.Client.csproj", "{90551D3F-526B-45DC-9500-49C01A304148}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMoodML.Model", "BrainMoodML.Model\BrainMoodML.Model.csproj", "{6C340E57-4FA3-41F2-B2F3-A871210755CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMoodML.ConsoleApp", "BrainMoodML.ConsoleApp\BrainMoodML.ConsoleApp.csproj", "{EE519BE2-4037-4A6A-B005-577647E773CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMood.CLI", "BrainMood.CLI\BrainMood.CLI.csproj", "{12B2E785-59B7-4909-96DA-87743118E0F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainMood.Harvester.GUI", "BrainMood.Harvester.GUI\BrainMood.Harvester.GUI.csproj", "{18730532-D4B5-460A-B509-1B926E223DBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{EE519BE2-4037-4A6A-B005-577647E773CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE519BE2-4037-4A6A-B005-577647E773CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE519BE2-4037-4A6A-B005-577647E773CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B2E785-59B7-4909-96DA-87743118E0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B2E785-59B7-4909-96DA-87743118E0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B2E785-59B7-4909-96DA-87743118E0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B2E785-59B7-4909-96DA-87743118E0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18730532-D4B5-460A-B509-1B926E223DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18730532-D4B5-460A-B509-1B926E223DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18730532-D4B5-460A-B509-1B926E223DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18730532-D4B5-460A-B509-1B926E223DBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

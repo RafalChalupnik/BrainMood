@@ -1,7 +1,7 @@
-﻿using BrainMood.Harvester.Data;
+﻿using BrainMood.Client.Data;
 using System;
 
-namespace BrainMood.Harvester.Mindwave.Events
+namespace BrainMood.Client.Mindwave.Events
 {
     public class EegDataEventArgs : EventArgs
     {
