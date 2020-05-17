@@ -6,48 +6,40 @@ namespace BrainMoodML.Model
 {
     public class ModelInput
     {
-        [ColumnName("alphaHigh"), LoadColumn(0)]
+        [ColumnName("emotion"), LoadColumn(0)]
+        public float Emotion { get; set; }
+
+
+        [ColumnName("alphaHigh"), LoadColumn(1)]
         public float AlphaHigh { get; set; }
 
 
-        [ColumnName("alphaLow"), LoadColumn(1)]
+        [ColumnName("alphaLow"), LoadColumn(2)]
         public float AlphaLow { get; set; }
 
 
-        [ColumnName("betaHigh"), LoadColumn(2)]
+        [ColumnName("betaHigh"), LoadColumn(3)]
         public float BetaHigh { get; set; }
 
 
-        [ColumnName("betaLow"), LoadColumn(3)]
+        [ColumnName("betaLow"), LoadColumn(4)]
         public float BetaLow { get; set; }
 
 
-        [ColumnName("delta"), LoadColumn(4)]
+        [ColumnName("delta"), LoadColumn(5)]
         public float Delta { get; set; }
 
 
-        [ColumnName("gammaHigh"), LoadColumn(5)]
+        [ColumnName("gammaHigh"), LoadColumn(6)]
         public float GammaHigh { get; set; }
 
 
-        [ColumnName("gammaLow"), LoadColumn(6)]
+        [ColumnName("gammaLow"), LoadColumn(7)]
         public float GammaLow { get; set; }
 
 
-        [ColumnName("theta"), LoadColumn(7)]
+        [ColumnName("theta"), LoadColumn(8)]
         public float Theta { get; set; }
-
-
-        [ColumnName("attention"), LoadColumn(8)]
-        public float Attention { get; set; }
-
-
-        [ColumnName("meditation"), LoadColumn(9)]
-        public float Meditation { get; set; }
-
-
-        [ColumnName("emotion"), LoadColumn(10)]
-        public bool Emotion { get; set; }
 
 
     }

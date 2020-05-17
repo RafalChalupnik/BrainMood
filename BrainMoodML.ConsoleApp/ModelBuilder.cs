@@ -25,7 +25,7 @@ namespace BrainMoodML.ConsoleApp
             IDataView trainingDataView = mlContext.Data.LoadFromTextFile<ModelInput>(
                                             path: TRAIN_DATA_FILEPATH,
                                             hasHeader: true,
-                                            separatorChar: ';',
+                                            separatorChar: ',',
                                             allowQuoting: true,
                                             allowSparse: false);
 
@@ -46,12 +46,12 @@ namespace BrainMoodML.ConsoleApp
         {
             // Data process configuration with pipeline data transformations 
             var dataProcessPipeline = mlContext.Transforms.Conversion.MapValueToKey("emotion", "emotion")
-                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "alphaHigh", "alphaLow", "betaHigh", "betaLow", "delta", "gammaHigh", "gammaLow", "theta", "attention", "meditation" }))
+                                      .Append(mlContext.Transforms.Concatenate("Features", new[] { "alphaHigh", "alphaLow", "betaHigh", "betaLow", "delta", "gammaHigh", "gammaLow", "theta" }))
                                       .AppendCacheCheckpoint(mlContext);
-
             // Set the training algorithm 
             var trainer = mlContext.MulticlassClassification.Trainers.OneVersusAll(mlContext.BinaryClassification.Trainers.FastTree(labelColumnName: "emotion", featureColumnName: "Features"), labelColumnName: "emotion")
                                       .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel"));
+
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
             return trainingPipeline;

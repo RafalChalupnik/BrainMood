@@ -20,7 +20,7 @@ namespace BrainMoodML.Model
             MLContext mlContext = new MLContext();
 
             // Load model & create prediction engine
-            string modelPath = AppDomain.CurrentDomain.BaseDirectory + "MLModel.zip";
+            string modelPath = "TODO";
             ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
