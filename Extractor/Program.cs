@@ -20,6 +20,13 @@ namespace Extractor
 
         public static void Main(string[] _)
         {
+            // Extract();
+
+            var data = CsvFileIO.Read(c_outputFile);
+        }
+
+        private static void Extract()
+        {
             Console.WriteLine($"Getting CSV files from {c_dataDirectory}...");
             var csvFiles = Directory.GetFiles(c_dataDirectory, "*.csv");
 

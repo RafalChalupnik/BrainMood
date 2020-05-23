@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMoodML.ConsoleApp", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extractor", "Extractor\Extractor.csproj", "{D4A0AAD1-4F79-4BCC-90DE-6E1ED402D1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManualTrainer", "ManualTrainer\ManualTrainer.csproj", "{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManualTrainer", "ManualTrainer\ManualTrainer.csproj", "{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainMood.Abstractions", "BrainMood.Abstractions\BrainMood.Abstractions.csproj", "{2CBD087B-5A40-4015-BF4C-63A40A94D599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CBD087B-5A40-4015-BF4C-63A40A94D599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CBD087B-5A40-4015-BF4C-63A40A94D599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CBD087B-5A40-4015-BF4C-63A40A94D599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CBD087B-5A40-4015-BF4C-63A40A94D599}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

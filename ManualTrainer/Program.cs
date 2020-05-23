@@ -10,6 +10,15 @@ using Microsoft.ML.Trainers.FastTree;
 
 namespace ManualTrainer
 {
+    static class Extensions
+    {
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> enumerable, T elementToRemove)
+            => enumerable.Except(elementToRemove.AsList());
+
+        public static List<T> AsList<T>(this T element)
+            => new List<T> {element};
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -20,10 +29,24 @@ namespace ManualTrainer
             var data = Shuffle(LoadData(), random);
             var batches = Shuffle(Split(data, 10), random);
 
-            var trainingData = batches.Take(7).SelectMany(x => x).ToList();
-            var testData = batches.Skip(7).SelectMany(x => x).ToList();
+            var output = batches
+                .Select(batch =>
+                {
+                    var testData = batch;
+                    var trainingData = batches
+                        .Except(testData)
+                        .SelectMany(x => x);
 
-            var trainingDataView = mlContext.Data.LoadFromEnumerable(trainingData);
+                    return RunLearning(mlContext, trainingData, testData);
+                })
+                .ToList();
+
+            var avgMicroAccuracy = output.Average(x => x.MicroAccuracy);
+        }
+
+        private static MulticlassClassificationMetrics RunLearning(MLContext context, IEnumerable<DataPoint> trainingData, IEnumerable<DataPoint> testData)
+        {
+            var trainingDataView = context.Data.LoadFromEnumerable(trainingData);
 
             var options = new FastTreeBinaryTrainer.Options
             {
@@ -35,40 +58,22 @@ namespace ManualTrainer
                 NumberOfTrees = 50
             };
 
-            var pipeline = mlContext.Transforms.Conversion.MapValueToKey("Label")
-                .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(
-                    mlContext.BinaryClassification.Trainers.FastTree(options)));
+            var pipeline = context.Transforms.Conversion.MapValueToKey("Label")
+                .Append(context.MulticlassClassification.Trainers.OneVersusAll(
+                    context.BinaryClassification.Trainers.FastTree(options)));
 
             // Train the model.
             var model = pipeline.Fit(trainingDataView);
 
             // Create testing data. Use different random seed to make it different
             // from training data.
-            var testDataView = mlContext.Data
+            var testDataView = context.Data
                 .LoadFromEnumerable(testData);
 
             // Run the model on test data set.
             var transformedTestData = model.Transform(testDataView);
 
-            // Convert IDataView object to a list.
-            var predictions = mlContext.Data
-                .CreateEnumerable<Prediction>(transformedTestData,
-                    reuseRowObject: false).ToList();
-
-            // Print 5 predictions.
-            foreach (var p in predictions.Take(5))
-                Console.WriteLine($"Score: {p.Score}, "
-                                  + $"Prediction: {p.PredictedLabel}");
-
-            // Expected output:
-            //   Label: True, Prediction: True
-            //   Label: False, Prediction: False
-            //   Label: True, Prediction: True
-            //   Label: True, Prediction: True
-            //   Label: False, Prediction: False
-
-            // Evaluate the overall metrics.
-            var metrics = mlContext.MulticlassClassification
+            return context.MulticlassClassification
                 .Evaluate(transformedTestData);
         }
 
@@ -120,12 +125,12 @@ namespace ManualTrainer
             var input = enumerable.ToList();
             var output = new List<List<T>>();
 
-            var partLength = input.Count / parts;
+            var partLength = (int) Math.Ceiling(input.Count / (double) parts);
 
             while (input.Any())
             {
                 var batchSize = Math.Min(input.Count, partLength);
-                var batch = input.Take(batchSize);
+                var batch = input.Take(batchSize).ToList();
                 input.RemoveRange(0, batchSize);
                 output.Add(batch.ToList());
             }
