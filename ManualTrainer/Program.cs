@@ -14,6 +14,49 @@ namespace BrainMood.ManualTrainer
     {
         public static void Main(string[] _)
         {
+            // CrossValidation();
+
+            var context = new MLContext();
+            var random = new Random();
+
+            var data = Shuffle(LoadData(), random);
+
+            var trainingDataView = context.Data.LoadFromEnumerable(data);
+
+            var options = new FastTreeBinaryTrainer.Options
+            {
+                // Use L2Norm for early stopping.
+                EarlyStoppingMetric = EarlyStoppingMetric.L2Norm,
+                // Create a simpler model by penalizing usage of new features.
+                FeatureFirstUsePenalty = 0.1,
+                // Reduce the number of trees to 50.
+                NumberOfTrees = 50
+            };
+
+            var pipeline = context.Transforms.Conversion.MapValueToKey("Label")
+                .Append(context.MulticlassClassification.Trainers.OneVersusAll(
+                    context.BinaryClassification.Trainers.FastTree(options)));
+
+            // Train the model.
+            var model = pipeline.Fit(trainingDataView);
+
+
+            // Create testing data. Use different random seed to make it different
+            // from training data.
+            var testDataView = context.Data
+                .LoadFromEnumerable(data);
+
+            // Run the model on test data set.
+            var transformedTestData = model.Transform(testDataView);
+
+            var metrics = context.MulticlassClassification
+                .Evaluate(transformedTestData);
+
+            context.Model.Save(model, trainingDataView.Schema, "model.zip");
+        }
+
+        private static void CrossValidation()
+        {
             var mlContext = new MLContext();
             var random = new Random();
 
@@ -55,6 +98,7 @@ namespace BrainMood.ManualTrainer
 
             // Train the model.
             var model = pipeline.Fit(trainingDataView);
+
 
             // Create testing data. Use different random seed to make it different
             // from training data.

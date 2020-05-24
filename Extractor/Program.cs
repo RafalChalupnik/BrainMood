@@ -15,11 +15,9 @@ namespace BrainMood.DataTransformer
         private const string c_dataDirectory = "TODO";
         private const string c_outputFile = "TODO";
 
-        private static readonly List<IFilter> s_filters = new List<IFilter>
-        {
+        private static readonly FilterWrapper s_filters = new FilterWrapper(
             new AttentionTresholdFilter(treshold: 50),
-            new MovingAverageFilter(windowWidth: 10, step: 1)
-        };
+            new MovingAverageFilter(windowWidth: 10, step: 1));
 
         public static void Main(string[] _)
         {
@@ -37,7 +35,7 @@ namespace BrainMood.DataTransformer
         private static List<CompleteData> ProcessFile(string filePath)
         {
             var data = ReadCsvFile(filePath);
-            return s_filters.Aggregate(data, (currentData, filter) => filter.Execute(currentData));
+            return s_filters.Apply(data);
         }
 
         private static List<CompleteData> ReadCsvFile(string filePath)
