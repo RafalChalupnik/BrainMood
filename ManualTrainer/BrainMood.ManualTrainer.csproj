@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.ML.FastTree" Version="1.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Abstractions\BrainMood.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

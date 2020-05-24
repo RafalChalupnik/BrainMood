@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMood.DataTransformer", "Extractor\BrainMood.DataTransformer.csproj", "{D4A0AAD1-4F79-4BCC-90DE-6E1ED402D1A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManualTrainer", "ManualTrainer\ManualTrainer.csproj", "{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainMood.ManualTrainer", "ManualTrainer\BrainMood.ManualTrainer.csproj", "{84B594D1-EEC8-4ACE-BFF3-1CC1BE545191}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainMood.Harvester.GUI", "Harvester.GUI\BrainMood.Harvester.GUI.csproj", "{18730532-D4B5-460A-B509-1B926E223DBB}"
 EndProject

@@ -3,25 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using BrainMood.Abstractions.Extensions;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers;
 using Microsoft.ML.Trainers.FastTree;
 
-namespace ManualTrainer
+namespace BrainMood.ManualTrainer
 {
-    static class Extensions
+    public class Program
     {
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> enumerable, T elementToRemove)
-            => enumerable.Except(elementToRemove.AsList());
-
-        public static List<T> AsList<T>(this T element)
-            => new List<T> {element};
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
+        public static void Main(string[] _)
         {
             var mlContext = new MLContext();
             var random = new Random();
