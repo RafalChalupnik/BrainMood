@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using BrainMood.Harvester.Data;
+using BrainMood.Client.Data;
 
 namespace Extractor.File
 {

@@ -1,4 +1,4 @@
-﻿using BrainMood.Harvester.Data;
+﻿using BrainMood.Client.Data;
 
 namespace Extractor
 {

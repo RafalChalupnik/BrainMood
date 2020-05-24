@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Harvester\BrainMood.Harvester.csproj" />
+    <ProjectReference Include="..\Client\BrainMood.Client.csproj" />
   </ItemGroup>
 
 </Project>
