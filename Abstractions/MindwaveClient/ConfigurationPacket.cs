@@ -1,7 +1,6 @@
-﻿using BrainMood.Client.Types;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace BrainMood.Client.Mindwave
+namespace BrainMood.Abstractions.MindwaveClient
 {
     public class ConfigurationPacket
     {
@@ -11,7 +10,7 @@ namespace BrainMood.Client.Mindwave
         [JsonProperty("format")]
         public string Format { get; }
 
-        public ConfigurationPacket(bool enableRawOutput, NotEmptyString format)
+        public ConfigurationPacket(bool enableRawOutput, string format)
         {
             EnableRawOutput = enableRawOutput;
             Format = format;

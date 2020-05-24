@@ -7,9 +7,9 @@ using BrainMood.Abstractions.Extensions;
 
 namespace BrainMood.Abstractions.IO
 {
-    public class CsvFileWriter
+    public static class CsvFileWriter
     {
-        public void WriteEegData(string filePath, IEnumerable<EegData> eegData)
+        public static void WriteEegData(string filePath, IEnumerable<EegData> eegData)
         {
             var headerLine = CreateEegDataHeaderLine();
             var contentLines = eegData
@@ -19,7 +19,7 @@ namespace BrainMood.Abstractions.IO
             WriteToCsvFile(filePath, headerLine, contentLines);
         }
 
-        public void WriteDataWithoutEmotions(string filePath, IEnumerable<DataWithoutEmotion> dataWithoutEmotions)
+        public static void WriteDataWithoutEmotions(string filePath, IEnumerable<DataWithoutEmotion> dataWithoutEmotions)
         {
             var headerLine = CreateDataWithoutEmotionsHeaderLine();
             var contentLines = dataWithoutEmotions
@@ -29,7 +29,7 @@ namespace BrainMood.Abstractions.IO
             WriteToCsvFile(filePath, headerLine, contentLines);
         }
 
-        public void WriteDataWithoutESense(string filePath, IEnumerable<DataWithoutESense> dataWithoutESense)
+        public static void WriteDataWithoutESense(string filePath, IEnumerable<DataWithoutESense> dataWithoutESense)
         {
             var headerLine = CreateDataWithoutESenseHeaderLine();
             var contentLines = dataWithoutESense
@@ -39,7 +39,7 @@ namespace BrainMood.Abstractions.IO
             WriteToCsvFile(filePath, headerLine, contentLines);
         }
 
-        public void WriteCompleteData(string filePath, IEnumerable<CompleteData> completeData)
+        public static void WriteCompleteData(string filePath, IEnumerable<CompleteData> completeData)
         {
             var headerLine = CreateCompleteDataHeaderLine();
             var contentLines = completeData

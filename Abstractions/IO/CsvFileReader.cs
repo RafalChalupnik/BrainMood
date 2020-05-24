@@ -8,15 +8,15 @@ using BrainMood.Abstractions.Extensions;
 
 namespace BrainMood.Abstractions.IO
 {
-    public class CsvFileReader
+    public static class CsvFileReader
     {
-        public List<EegData> ReadEegData(string filePath)
+        public static List<EegData> ReadEegData(string filePath)
         {
             var csvFile = ReadCsvFile(filePath);
             return ReadEegDataFromCsv(csvFile);
         }
 
-        public List<DataWithoutEmotion> ReadDataWithoutEmotions(string filePath)
+        public static List<DataWithoutEmotion> ReadDataWithoutEmotions(string filePath)
         {
             var csvFile = ReadCsvFile(filePath);
 
@@ -28,7 +28,7 @@ namespace BrainMood.Abstractions.IO
                 .ToList();
         }
 
-        public List<DataWithoutESense> ReadDataWithoutESense(string filePath)
+        public static List<DataWithoutESense> ReadDataWithoutESense(string filePath)
         {
             var csvFile = ReadCsvFile(filePath);
 
@@ -40,7 +40,7 @@ namespace BrainMood.Abstractions.IO
                 .ToList();
         }
 
-        public List<CompleteData> ReadCompleteData(string filePath)
+        public static List<CompleteData> ReadCompleteData(string filePath)
         {
             var csvFile = ReadCsvFile(filePath);
 
@@ -57,28 +57,28 @@ namespace BrainMood.Abstractions.IO
         private static CsvFile ReadCsvFile(string filePath)
             => new CsvFile(File.ReadAllLines(filePath));
 
-        private List<EegData> ReadEegDataFromCsv(CsvFile csvFile)
+        private static List<EegData> ReadEegDataFromCsv(CsvFile csvFile)
         {
             return csvFile.Lines
                 .Select(ParseEegDataLine)
                 .ToList();
         }
 
-        private List<ESenseData> ReadESenseDataFromCsv(CsvFile csvFile)
+        private static List<ESenseData> ReadESenseDataFromCsv(CsvFile csvFile)
         {
             return csvFile.Lines
                 .Select(ParseESenseDataLine)
                 .ToList();
         }
 
-        private List<Emotion> ReadEmotionsFromCsv(CsvFile csvFile)
+        private static List<Emotion> ReadEmotionsFromCsv(CsvFile csvFile)
         {
             return csvFile.Lines
                 .Select(ParseEmotionDataLine)
                 .ToList();
         }
 
-        private EegData ParseEegDataLine(IReadOnlyDictionary<string, string> csvFileLine)
+        private static EegData ParseEegDataLine(IReadOnlyDictionary<string, string> csvFileLine)
         {
             return new EegData(
                 csvFileLine.GetDoubleFromInvariantKey(nameof(EegData.AlphaHigh)),
@@ -91,14 +91,14 @@ namespace BrainMood.Abstractions.IO
                 csvFileLine.GetDoubleFromInvariantKey(nameof(EegData.Theta)));
         }
 
-        private ESenseData ParseESenseDataLine(IReadOnlyDictionary<string, string> csvFileLine)
+        private static ESenseData ParseESenseDataLine(IReadOnlyDictionary<string, string> csvFileLine)
         {
             return new ESenseData(
                 csvFileLine.GetDoubleFromInvariantKey(nameof(ESenseData.Attention)),
                 csvFileLine.GetDoubleFromInvariantKey(nameof(ESenseData.Meditation)));
         }
 
-        private Emotion ParseEmotionDataLine(IReadOnlyDictionary<string, string> csvFileLine)
+        private static Emotion ParseEmotionDataLine(IReadOnlyDictionary<string, string> csvFileLine)
         {
             return (Emotion) Enum.Parse(typeof(Emotion), csvFileLine.GetFromInvariantKey(nameof(Emotion)));
         }

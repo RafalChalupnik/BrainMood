@@ -1,13 +1,12 @@
-﻿using BrainMood.Client.Types;
-using System;
+﻿using System;
 
-namespace BrainMood.Client.Mindwave.Events
+namespace BrainMood.Abstractions.MindwaveClient.Events
 {
     public class ErrorEventArgs : EventArgs
     {
         public string Error { get; }
 
-        public ErrorEventArgs(NotEmptyString error)
+        public ErrorEventArgs(string error)
         {
             Error = error;
         }

@@ -1,9 +1,4 @@
-﻿using BrainMood.Client.Data;
-using BrainMood.Client.Mindwave;
-using BrainMood.Client.Mindwave.Events;
-using BrainMood.Client.Types;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +6,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BrainMood.Abstractions.Data;
+using BrainMood.Abstractions.MindwaveClient.Events;
+using Newtonsoft.Json;
 
-namespace BrainMood.Client
+namespace BrainMood.Abstractions.MindwaveClient
 {
     public class HeadsetClient : TcpClient
     {
@@ -21,16 +19,16 @@ namespace BrainMood.Client
 
         private static readonly Encoding s_encoding = Encoding.UTF8;
 
-        private static readonly ConfigurationPacket s_configurationPacket 
+        private static readonly ConfigurationPacket s_configurationPacket
             = new ConfigurationPacket(enableRawOutput: false, format: "Json");
 
-        private NetworkStream m_networkStream;
+        private readonly NetworkStream m_networkStream;
 
-        public event EventHandler<EegDataEventArgs>? DataReceived;
+        public event EventHandler<DataReceivedEventArgs>? DataReceived;
 
         public event EventHandler<ErrorEventArgs>? ErrorOccured;
 
-        public HeadsetClient() : base(c_ipAddress, c_port) 
+        public HeadsetClient() : base(c_ipAddress, c_port)
         {
             m_networkStream = GetStream();
 
@@ -101,29 +99,29 @@ namespace BrainMood.Client
                 return;
             }
 
-            var deserializedPacket = JsonConvert.DeserializeObject<EegData>(packetJson);
+            var deserializedPacket = JsonConvert.DeserializeObject<DataWithoutEmotion>(packetJson);
             ReportData(deserializedPacket);
         }
 
-        private bool IsDeviceOff(IDictionary packet)
+        private static bool IsDeviceOff(IDictionary packet)
         {
             return packet.Contains("status");
         }
 
-        private bool IsDeviceNotFitted(IDictionary packet)
+        private static bool IsDeviceNotFitted(IDictionary packet)
         {
-            return packet["eSense"]!.ToString() 
+            return packet["eSense"]!.ToString()
                 == "{\"attention\":0,\"meditation\":0}";
         }
 
-        private void ReportError(NotEmptyString error)
+        private void ReportError(string error)
         {
             ErrorOccured?.Invoke(this, new ErrorEventArgs(error));
         }
 
-        private void ReportData(EegData data)
+        private void ReportData(DataWithoutEmotion data)
         {
-            DataReceived?.Invoke(this, new EegDataEventArgs(data));
+            DataReceived?.Invoke(this, new DataReceivedEventArgs(data));
         }
     }
 }
