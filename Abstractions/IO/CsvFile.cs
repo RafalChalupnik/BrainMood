@@ -10,7 +10,7 @@ namespace BrainMood.Abstractions.IO
 
         public CsvFile(IReadOnlyCollection<string> csvFileLines, char separator = ',')
         {
-            var headers = csvFileLines.First().Split(separator).ToList();
+            var headers = csvFileLines.First().Split(separator).Select(header => header.ToLowerInvariant()).ToList();
             var contentLines = csvFileLines.Skip(1).ToList();
 
             var lines = contentLines

@@ -61,7 +61,10 @@ namespace BrainMood.Abstractions.MindwaveClient
             var configurationPacketJson = JsonConvert.SerializeObject(s_configurationPacket);
             var configurationPacketBytes = s_encoding.GetBytes(configurationPacketJson);
 
-            await m_networkStream.WriteAsync(configurationPacketBytes, 0, configurationPacketBytes.Length);
+            await m_networkStream.WriteAsync(
+                buffer: configurationPacketBytes, 
+                offset: 0, 
+                count: configurationPacketBytes.Length);
         }
 
         private List<string> ReadPacketsBatch()
@@ -72,14 +75,20 @@ namespace BrainMood.Abstractions.MindwaveClient
             var buffer = new byte[c_maxLength];
             var bytesRead = m_networkStream.Read(buffer, 0, c_maxLength);
 
-            return s_encoding.GetString(buffer, 0, bytesRead)
+            return s_encoding.GetString(
+                    bytes: buffer, 
+                    index: 0, 
+                    count: bytesRead)
                 .Split(c_separator)
                 .ToList();
         }
 
         private void HandlePacket(string packetJson)
         {
-            if (!packetJson.Contains("{") || packetJson.Contains("blink") || packetJson.Contains("mentalEffort") || packetJson.Contains("familiarity"))
+            if (!packetJson.Contains("{") 
+                || packetJson.Contains("blink") 
+                || packetJson.Contains("mentalEffort") 
+                || packetJson.Contains("familiarity"))
             {
                 //ReportError($"Unrecognized JSON: {packetJson}");
                 return;
@@ -99,7 +108,8 @@ namespace BrainMood.Abstractions.MindwaveClient
                 return;
             }
 
-            var deserializedPacket = JsonConvert.DeserializeObject<DataWithoutEmotion>(packetJson);
+            var deserializedPacket = JsonConvert
+                .DeserializeObject<DataWithoutEmotion>(packetJson);
             ReportData(deserializedPacket);
         }
 

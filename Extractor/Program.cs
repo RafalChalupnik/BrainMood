@@ -16,7 +16,7 @@ namespace BrainMood.DataTransformer
         private const string c_outputFile = "TODO";
 
         private static readonly FilterWrapper s_filters = new FilterWrapper(
-            new AttentionTresholdFilter(treshold: 50),
+            //new AttentionTresholdFilter(treshold: 50),
             new MovingAverageFilter(windowWidth: 10, step: 1));
 
         public static void Main(string[] _)
@@ -70,7 +70,7 @@ namespace BrainMood.DataTransformer
                 return Emotion.Relax;
             }
 
-            throw new Exception("Nope nope nope");
+            throw new Exception("Emotion cannot be recognized from the file name.");
         }
 
         private static void WriteToCsvFile(string filePath, IEnumerable<CompleteData> data)

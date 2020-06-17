@@ -88,7 +88,7 @@ namespace BrainMood.Abstractions.IO
 
         private static string ToCsvLine(EegData eegData)
         {
-            return string.Join(",",
+            return string.Join(";",
                 eegData.AlphaHigh,
                 eegData.AlphaLow,
                 eegData.BetaHigh,
@@ -101,7 +101,7 @@ namespace BrainMood.Abstractions.IO
 
         private static string ToCsvLine(DataWithoutEmotion dataWithoutEmotion)
         {
-            return string.Join(",",
+            return string.Join(";",
                 ToCsvLine(dataWithoutEmotion.Eeg),
                 dataWithoutEmotion.ESense.Attention,
                 dataWithoutEmotion.ESense.Meditation);
@@ -109,14 +109,14 @@ namespace BrainMood.Abstractions.IO
 
         private static string ToCsvLine(DataWithoutESense dataWithoutESense)
         {
-            return string.Join(",",
+            return string.Join(";",
                 (int) dataWithoutESense.Emotion,
                 ToCsvLine(dataWithoutESense.Eeg));
         }
 
         private static string ToCsvLine(CompleteData completeData)
         {
-            return string.Join(",",
+            return string.Join(";",
                 (int)completeData.Emotion,
                 ToCsvLine(completeData.Eeg),
                 completeData.ESense.Attention,

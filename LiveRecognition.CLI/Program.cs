@@ -39,8 +39,10 @@ namespace BrainMood.LiveRecognition.CLI
         private const int c_dataCount = 10;
 
         private static readonly MLContext s_mlContext = new MLContext();
-        private static readonly PredictionEngine<ModelInput, ModelOutput> s_model = LoadModel();
-        private static readonly List<DataWithoutEmotion> s_data = new List<DataWithoutEmotion>();
+        private static readonly PredictionEngine<ModelInput, ModelOutput> s_model
+            = LoadModel();
+        private static readonly List<DataWithoutEmotion> s_data 
+            = new List<DataWithoutEmotion>();
 
         private static readonly FilterWrapper s_filters = new FilterWrapper(
             new MovingAverageFilter(windowWidth: c_dataCount, step: 1));
@@ -78,7 +80,10 @@ namespace BrainMood.LiveRecognition.CLI
             }
             else
             {
-                var filteredData = s_filters.Apply(s_data.TakeLast(10).Select(ToCompleteData).ToList());
+                var filteredData = s_filters.Apply(s_data
+                    .TakeLast(10)
+                    .Select(ToCompleteData)
+                    .ToList());
                 Predict(filteredData.Last().Eeg);
                 Console.WriteLine();
             }
@@ -97,7 +102,10 @@ namespace BrainMood.LiveRecognition.CLI
         }
 
         private static CompleteData ToCompleteData(DataWithoutEmotion dataWithoutEmotion)
-            => new CompleteData(Emotion.Undefined, dataWithoutEmotion.Eeg, dataWithoutEmotion.ESense);
+            => new CompleteData(
+                Emotion.Undefined, 
+                dataWithoutEmotion.Eeg, 
+                dataWithoutEmotion.ESense);
 
         private static void Predict(EegData eegData)
         {
