@@ -1,11 +1,10 @@
-﻿using BrainMood.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using BrainMood.Client.Data;
-using BrainMood.Client.Mindwave.Events;
+using BrainMood.Abstractions.MindwaveClient;
+using BrainMood.Abstractions.Data;
 
 namespace BrainMood.Harvester.GUI
 {
@@ -27,12 +26,12 @@ namespace BrainMood.Harvester.GUI
     internal class Session
     {
         private readonly SessionConfig m_sessionConfig;
-        private readonly List<EegData> m_data;
+        private readonly List<DataWithoutEmotion> m_data;
 
         public Session(SessionConfig config)
         {
             m_sessionConfig = config;
-            m_data = new List<EegData>();
+            m_data = new List<DataWithoutEmotion>();
         }
 
         public async void Run()
@@ -129,7 +128,7 @@ namespace BrainMood.Harvester.GUI
             _ = photoDisplayForm.ShowDialog();
         }
 
-        private static void SaveSampleData(string sampleFilePath, string outputDirectory, IEnumerable<EegData> data)
+        private static void SaveSampleData(string sampleFilePath, string outputDirectory, IEnumerable<DataWithoutEmotion> data)
         {
             var outputFileName = $"{Path.GetFileNameWithoutExtension(sampleFilePath)}_data.csv";
             var outputFilePath = Path.Combine(outputDirectory, outputFileName);
@@ -159,7 +158,7 @@ namespace BrainMood.Harvester.GUI
             File.WriteAllLines(outputFilePath, fileContent);
         }
 
-        private static List<string> SerializeEegData(IEnumerable<EegData> data)
+        private static List<string> SerializeEegData(IEnumerable<DataWithoutEmotion> data)
         {
             var output = new List<string>
             {
@@ -171,17 +170,17 @@ namespace BrainMood.Harvester.GUI
             return output;
         }
 
-        private static string EegDataToCsvString(EegData data)
+        private static string EegDataToCsvString(DataWithoutEmotion data)
         {
             return string.Join(",",
-                data.Brainwaves.AlphaHigh,
-                data.Brainwaves.AlphaLow,
-                data.Brainwaves.BetaHigh,
-                data.Brainwaves.BetaLow,
-                data.Brainwaves.Delta,
-                data.Brainwaves.GammaHigh,
-                data.Brainwaves.GammaLow,
-                data.Brainwaves.Theta,
+                data.Eeg.AlphaHigh,
+                data.Eeg.AlphaLow,
+                data.Eeg.BetaHigh,
+                data.Eeg.BetaLow,
+                data.Eeg.Delta,
+                data.Eeg.GammaHigh,
+                data.Eeg.GammaLow,
+                data.Eeg.Theta,
                 data.ESense.Attention,
                 data.ESense.Meditation);
         }

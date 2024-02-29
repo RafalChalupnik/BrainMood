@@ -125,5 +125,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abstractions\BrainMood.Abstractions.csproj">
+      <Project>{35F6BD4D-9319-4DC2-900B-0726CA723C52}</Project>
+      <Name>BrainMood.Abstractions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

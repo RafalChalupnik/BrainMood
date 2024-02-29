@@ -1,5 +1,5 @@
-﻿using BrainMood.Client;
-using BrainMood.Client.Mindwave.Events;
+﻿using BrainMood.Abstractions.MindwaveClient;
+using BrainMood.Abstractions.MindwaveClient.Events;
 using System;
 using System.Windows.Forms;
 
@@ -25,7 +25,7 @@ namespace BrainMood.Harvester.GUI
             m_headsetClient.ErrorOccured += ErrorOccured;
         }
 
-        private void DataReceived(object sender, EegDataEventArgs args)
+        private void DataReceived(object sender, DataReceivedEventArgs args)
         {
             m_dataReceivedCount++;
 
@@ -47,7 +47,7 @@ namespace BrainMood.Harvester.GUI
 
             Invoke((MethodInvoker)delegate
             {
-                outputTextBox.AppendText($"Connecting: {args.Error}\n");
+                outputTextBox.AppendText($"Connecting: {args}\n");
             });
         }
     }

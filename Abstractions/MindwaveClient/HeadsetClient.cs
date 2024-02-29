@@ -97,12 +97,12 @@ namespace BrainMood.Abstractions.MindwaveClient
             var clearedPacketJson = packetJson.Substring(packetJson.IndexOf('{'));
             var packet = JsonConvert.DeserializeObject<IDictionary>(clearedPacketJson);
 
-            if (IsDeviceOff(packet))
+            if (IsDeviceOff(packet!))
             {
                 ReportError("Device is off");
                 return;
             }
-            if (IsDeviceNotFitted(packet))
+            if (IsDeviceNotFitted(packet!))
             {
                 ReportError("Device is not fitted correctly.");
                 return;
@@ -110,7 +110,7 @@ namespace BrainMood.Abstractions.MindwaveClient
 
             var deserializedPacket = JsonConvert
                 .DeserializeObject<DataWithoutEmotion>(packetJson);
-            ReportData(deserializedPacket);
+            ReportData(deserializedPacket!);
         }
 
         private static bool IsDeviceOff(IDictionary packet)
