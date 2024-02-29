@@ -79,7 +79,7 @@ namespace BrainMood.ManualTrainer
 
         private static IEnumerable<DataPoint> LoadData()
         {
-            var data = CsvFileReader.ReadDataWithoutESense("TODO");
+            var data = CsvFileReader.ReadDataWithoutESense("../../../../_Data/Data.csv");
 
             foreach (var record in data)
             {
